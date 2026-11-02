@@ -1,0 +1,859 @@
+==============================================================================
+  PETUNJUK LENGKAP UNDANGAN DIGITAL PERNIKAHAN  (Versi 6 - Alam Indah)
+  Dari nol sampai klien membagikan undangan ke tamu
+  Ditulis untuk PEMULA - ikuti urutan tahap, jangan lompat.
+==============================================================================
+
+DAFTAR ISI
+  Tahap 0   Kenali dulu isi folder (baca 3 menit)
+  Tahap 1   Kumpulkan bahan dari klien
+  Tahap 2   Siapkan alat di komputer
+  Tahap 3   Isi data undangan (data/data-undangan.js)
+  Tahap 4   Ganti foto dan musik
+  Tahap 5   Coba dulu di komputer
+  Tahap 6   Sambungkan Firebase (agar ucapan & daftar tamu online)
+  Tahap 7   Sinkronkan tampilan link WhatsApp (sinkron-meta.py)
+  Tahap 8   Publikasi ke internet (GitHub Pages)
+  Tahap 9   Isi alamat asli, sinkron ulang, upload ulang
+  Tahap 10  Tes akhir di HP
+  Tahap 11  Serah terima ke klien
+  Tahap 12  PANDUAN UNTUK KLIEN: UCAPAN & PANEL ADMIN (tambah tamu, kirim WA)
+  Tahap 13  Setelah acara / jika ada perubahan data
+  Lampiran A  Masalah yang sering terjadi dan solusinya
+  Lampiran B  Rekomendasi musik
+  Lampiran C  Contoh pesan serah terima ke klien
+  Lampiran D  Daftar centang akhir
+
+
+==============================================================================
+TAHAP 0 - KENALI DULU ISI FOLDER
+==============================================================================
+
+Folder ini adalah website undangan pernikahan yang sudah jadi. Anda TIDAK perlu bisa
+membuat program. Anda hanya mengganti data, foto, dan musik.
+
+  index.html ................ Halaman undangan yang dilihat tamu. JANGAN diedit.
+  admin.html ................ Panel admin untuk klien (tambah tamu, kirim WA,
+                              baca ucapan). JANGAN diedit.
+  data/data-undangan.js ..... FILE PALING PENTING. Semua data undangan ada di
+                              sini (nama mempelai, akad, resepsi, foto, musik, dll).
+  foto/ ..................... Semua foto undangan.
+  musik/ .................... Lagu latar undangan (musik.mp3).
+  js/fb.js .................. Penghubung ke Firebase. JANGAN diedit.
+  firebase.rules ............ Aturan keamanan yang ditempel ke Firebase (Tahap 6).
+  tools/sinkron-meta.py ..... Alat untuk membuat gambar pratinjau link WhatsApp.
+  PETUNJUK.txt .............. File ini.
+
+ISTILAH PENTING
+  - Tuan rumah / klien : orang yang memesan undangan.
+  - Tamu               : orang yang diundang.
+  - Hosting            : tempat menaruh website di internet agar bisa dibuka
+                         lewat link. Di petunjuk ini kita pakai GitHub Pages
+                         (gratis).
+  - Firebase           : layanan gratis dari Google untuk menyimpan ucapan
+                         tamu dan daftar tamu secara online.
+  - Kode undangan      : nama unik tiap undangan, huruf kecil tanpa spasi,
+                         contoh: rezanadia2027. Dipakai juga sebagai nama login admin.
+
+ALUR SINGKAT:
+  Bahan klien -> edit data -> ganti foto/musik -> tes di komputer ->
+  Firebase -> sinkron pratinjau -> upload ke GitHub Pages -> tes di HP ->
+  serahkan link ke klien -> klien kirim ke tamu lewat panel admin.
+
+
+==============================================================================
+TAHAP 1 - KUMPULKAN BAHAN DARI KLIEN
+==============================================================================
+
+Minta data berikut SEKALI di awal supaya tidak bolak-balik. Minta klien
+menuliskannya lewat WhatsApp/catatan agar ejaan nama benar.
+
+DATA TEKS
+  [ ] Nama lengkap mempelai pria + nama panggilan   (Reza Aditya Pratama / Reza)
+  [ ] Nama lengkap mempelai wanita + nama panggilan (Nadia Salsabila Putri / Nadia)
+  [ ] Tema visual yang diinginkan (warna/gaya, mis. alam indah, rustic, atau floral)
+  [ ] Deskripsi singkat undangan (1-2 kalimat untuk pengantar atau pratinjau)
+  [ ] Anak ke berapa masing-masing (boleh dikosongkan)
+  [ ] Nama ayah dan ibu dari kedua mempelai
+  [ ] Akun Instagram mempelai (boleh tidak)
+  [ ] Tanggal AKAD NIKAH, jam mulai/selesai, nama tempat, alamat, link Maps
+  [ ] Tanggal RESEPSI, jam mulai/selesai, nama tempat, alamat, link Maps
+      (cek lagi TAHUN-nya! Jika tanggal akad dan resepsi sama, isi sama)
+  [ ] Zona waktu acara: WIB / WITA / WIT
+  [ ] Link siaran langsung (YouTube/Zoom) - jika ada
+  [ ] Kisah cinta singkat 2-4 poin: tahun + judul + 1-2 kalimat (boleh tidak)
+  [ ] Mau menampilkan rekening hadiah? (maksimal 2 rekening: bank, nomor,
+      nama pemilik) dan/atau alamat pengiriman kado - boleh tidak
+  [ ] Daftar "Turut Mengundang" (jika mau)
+  [ ] Catatan tambahan (dress code, protokol, dsb.) - boleh tidak
+  [ ] Nomor WhatsApp tuan rumah (untuk menerima konfirmasi ucapan)
+  [ ] Kata sandi admin yang diinginkan klien (minimal 6 karakter)
+
+FOTO (minta foto ASLI dari HP, bukan hasil kirim WA yang sudah diperkecil)
+  [ ] Foto sampul (sampul.webp)         -> tampil di halaman pembuka (potret,
+                                          idealnya foto berdua)
+  [ ] Foto latar utama (latar-utama)   -> foto kedua slideshow halaman pembuka
+  [ ] Foto mempelai pria (pria)        -> bingkai bulat (urutan: wanita lalu pria)
+  [ ] Foto mempelai wanita (wanita)    -> bingkai bulat
+  [ ] Foto penutup (penutup)           -> bagian akhir
+  [ ] Foto galeri 3 sampai 6 lembar (pre-wedding/kenangan)
+
+MUSIK
+  [ ] Judul lagu pilihan klien (file mp3) - lihat Lampiran B untuk saran.
+
+TIPS:
+  - Foto potret (berdiri) paling cocok. Wajah di bagian atas-tengah.
+  - Pastikan klien punya hak pakai foto dan lagu yang dipilih.
+
+==============================================================================
+TAHAP 2 - SIAPKAN ALAT DI KOMPUTER
+==============================================================================
+
+1. Salin dulu folder ini. Jangan mengedit satu-satunya salinan. Contoh:
+   salin "Versi-6-Alam-Indah" menjadi "undangan-reza-nadia".
+
+   Jika ZIP, klik kanan -> Extract All / Ekstrak Semua dulu. Jangan edit
+   file dari dalam ZIP.
+
+2. Pasang editor teks (gratis). Pilih salah satu:
+   - Notepad++  (Windows)   https://notepad-plus-plus.org
+   - VS Code    (Windows/Mac) https://code.visualstudio.com
+
+   JANGAN pakai Microsoft Word atau WordPad untuk mengedit file .js atau
+   .html. Word merusak tanda kutip dan file jadi tidak jalan.
+   Di HP/Notepad bawaan: sebaiknya hindari, pakai komputer.
+
+3. (Hanya untuk Tahap 7) Pasang Python dan Pillow:
+   - Unduh Python di https://www.python.org/downloads  (centang
+     "Add Python to PATH" saat instalasi).
+   - Buka Command Prompt (Windows: tekan tombol Windows, ketik "cmd") lalu:
+         pip install pillow
+   - Jika belum bisa memasang Python, lompati Tahap 7 dulu lalu baca
+     catatan pengganti di Tahap 7.
+
+4. Buat akun gratis (cukup sekali, bisa dipakai untuk banyak undangan):
+   - Akun Google (untuk Firebase)  -> https://console.firebase.google.com
+   - Akun GitHub (untuk hosting)   -> https://github.com
+
+
+==============================================================================
+TAHAP 3 - ISI DATA UNDANGAN  (file: data/data-undangan.js)
+==============================================================================
+
+Buka data/data-undangan.js dengan Notepad++ atau VS Code.
+
+ATURAN EMAS (kalau dilanggar undangan jadi putih/kosong):
+  1. Yang diubah hanya teks DI DALAM tanda kutip "....".
+  2. JANGAN hapus tanda kutip ", koma ,, kurung { } dan [ ].
+  3. Gunakan tanda kutip lurus " bukan tanda kutip lengkung.
+  4. Jangan ada tanda kutip di tengah teks. Jika perlu, pakai tanda ' saja.
+  5. Setiap baris diakhiri koma, kecuali yang terakhir dalam satu kelompok.
+  6. Format tanggal  TAHUN-BULAN-TANGGAL  -> "2027-06-12"
+     Format jam      24 jam                -> "09:00"
+
+Berikut arti tiap bagian (sesuaikan dengan data klien):
+
+  "kategori": "pernikahan"
+        -> Biarkan.
+
+  "kode": "rezanadia2027"
+        -> Kode unik undangan. Huruf kecil, tanpa spasi, tanpa simbol.
+           Kode ini juga menjadi nama login admin dan tempat penyimpanan
+           ucapan. Jangan sama dengan undangan klien lain yang memakai
+           Firebase yang sama. Setelah undangan disebar, jangan diganti lagi
+           (ucapan lama akan "hilang" dari tampilan).
+
+  "siteUrl": ""
+        -> Alamat undangan setelah dipublikasi. Isi di Tahap 9, contoh
+           "https://NAMAANDA.github.io/nikah-reza-nadia/"
+           Wajib diakhiri tanda garis miring /.
+
+  "firebase": { "apiKey": "...", "projectId": "..." }
+        -> Diisi di Tahap 6. Kalau tidak mau memakai Firebase, kosongkan
+           dua nilai itu (""). Undangan tetap jalan, tetapi ucapan hanya
+           tersimpan di HP tamu itu sendiri dan panel admin tidak aktif.
+
+  "ucapanPublik": true
+        -> true  = ucapan tamu bisa dibaca tamu lain.
+           false = ucapan hanya bisa dibaca tuan rumah.
+           (Klien juga bisa mengubahnya sendiri lewat panel admin.)
+
+  "model": "Versi 6 - Alam Indah"
+        -> Catatan nama model, tidak tampil di undangan. Tema visual bawaan
+           template ini adalah Alam Indah. Mengganti nama di sini tidak
+           mengubah tampilannya; tema lain memerlukan perubahan desain oleh
+           orang yang bisa mengedit index.html.
+
+  "pemesan": { "nama": "...", "whatsapp": "6281234567890" }
+        -> Nomor WhatsApp TUAN RUMAH. Pakai awalan 62, tanpa 0, tanpa +.
+           Benar: 6281234567890     Salah: 081234567890 / +6281234567890
+           Dipakai tombol "Kirim juga ke WhatsApp tuan rumah" pada form ucapan.
+           (Nomor bawaan ini hanya contoh - WAJIB diganti.)
+
+  "foto": { "sampul": "foto/sampul.webp", ... }
+        -> Nama file foto. Harus SAMA PERSIS dengan file di folder foto
+           (huruf besar/kecil dan titik-ekstensi juga dihitung).
+           Kunci: sampul, latarUtama, pria, wanita, penutup, cerita, pratinjau.
+           (sampul dan latarUtama tampil bergantian sebagai slideshow di halaman
+           pembuka; "cerita" = foto di bagian Kisah Cinta.)
+           "pratinjau": ""  -> boleh kosong; jika kosong, gambar link WA
+           dibuat dari foto sampul.
+
+  "pria" dan "wanita": { "nama": "...", "panggilan": "...", "putraKe": "2",
+             "ayah": "...", "ibu": "...", "instagram": "" }
+        -> Untuk wanita, kuncinya "putriKe". Isi angka agar tampil "Putra ke-2
+           dari"; kosongkan "" jika tidak mau tampil.
+           Nama ayah/ibu TANPA "Bapak" dan "Ibu" (sudah ditambah otomatis).
+           "instagram": isi nama akun tanpa @ (boleh kosong).
+
+  "zona": "WIB"
+        -> WIB, WITA, atau WIT. Dipakai untuk hitung mundur, tulisan jam, dan
+           tombol "Simpan ke Kalender".
+
+  "akad" dan "resepsi": { "tanggal": "2027-06-12", "jamMulai": "08:00",
+              "jamSelesai": "10:00", "tempat": "...", "alamat": "...", "maps": "..." }
+        -> "jamSelesai" boleh "" (akan tampil "- selesai").
+        -> Jika tidak ada resepsi, ubah menjadi  "resepsi": null  (kartunya
+           otomatis hilang). Hal yang sama berlaku untuk "akad".
+        -> Hitung mundur mengikuti jam mulai AKAD (atau resepsi jika akad null).
+        -> "maps": cara mendapatkan:
+             1. Buka Google Maps di HP/komputer, cari lokasi acara.
+             2. Tekan Bagikan/Share -> Salin link.
+             3. Tempel di antara tanda kutip.
+
+  "siaranLangsung": ""
+        -> Isi link YouTube/Zoom jika ada; tombol "Siaran Langsung" muncul.
+
+  "cerita": [ { "judul": "...", "waktu": "2021", "isi": "..." }, ... ]
+        -> Kisah cinta. Boleh dikurangi/ditambah. Isi  []  jika tidak mau
+           bagian ini. (Isi bawaan hanya contoh - ganti dengan kisah klien.)
+
+  "galeri": ["foto/galeri-1.webp", "foto/galeri-2.webp", ...]
+        -> Daftar foto galeri. Boleh dikurangi/ditambah. Pisahkan dengan koma.
+           Koma terakhir tidak perlu.
+
+  "hadiah": []
+        -> Kosong = bagian rekening tidak tampil. Untuk menampilkan rekening
+           (maksimal 2), isi seperti ini:
+           "hadiah": [
+             { "bank": "BCA", "nomor": "1234567890", "atasNama": "Nama Pemilik" },
+             { "bank": "BRI", "nomor": "0987654321", "atasNama": "Nama Pemilik" }
+           ],
+           PERIKSA nomor dan nama pemilik dua kali. Salah ketik = uang tamu
+           salah tujuan.
+
+  "alamatKado": ""
+        -> Alamat pengiriman kado (boleh kosong). Jika diisi, bagian "Hadiah
+           Pernikahan" tampil dengan tombol "Salin alamat".
+
+  "turutMengundangTampil": false  dan  "turutMengundang": []
+        -> Jika mau menampilkan, ubah menjadi true dan isi nama, contoh:
+           "turutMengundang": ["Keluarga Besar Bapak A", "Keluarga Besar Ibu B"]
+
+  "musik": "musik/musik.mp3"
+        -> Nama file lagu. Kosongkan "" jika tanpa musik.
+
+  "catatan": ""        -> Tampil di bagian penutup (dress code, dsb.). Boleh kosong.
+
+  "ucapan": []
+        -> Biarkan [] (kosong). Jangan isi ucapan palsu, agar tidak dianggap
+           ucapan tamu sungguhan.
+
+PERIKSA SEBELUM LANJUT:
+  - [ ] Tanggal sudah benar, terutama TAHUN. (Contoh bawaan ini bertanggal
+        12 Juni 2027 - pastikan itu memang tanggal acara yang benar!)
+  - [ ] Nama kedua mempelai dan orang tua tidak ada salah ketik.
+  - [ ] Nomor WA diawali 62.
+  - [ ] Semua tanda kutip dan koma masih lengkap.
+
+==============================================================================
+TAHAP 4 - GANTI FOTO DAN MUSIK
+==============================================================================
+
+FOTO
+  1. Buka folder foto/. Isinya foto contoh. Ganti dengan
+     foto klien.
+  2. Cara termudah: beri nama foto klien SAMA dengan nama file lama, lalu
+     timpa (replace). Nama file: sampul, latar-utama, pria, wanita, penutup, cerita,
+     galeri-1 ... galeri-6 (semuanya .webp; .jpg juga boleh asalkan
+     tulisannya di data-undangan.js ikut diubah).
+  3. Jika memakai nama lain, ubah juga tulisannya di data-undangan.js bagian
+     "foto" dan "galeri".
+  4. Format: JPG. Ukuran yang disarankan:
+        - sampul, latar-utama, pria, wanita, penutup : sisi panjang 1200-1600 px
+        - galeri                                      : sisi panjang 1000-1400 px
+     Setiap foto idealnya di bawah 400 KB agar cepat dibuka tamu di HP.
+     Perkecil foto di https://squoosh.app atau https://tinypng.com
+     (gratis, lewat browser).
+  5. Jangan pakai spasi atau huruf aneh pada nama file. Pakai huruf kecil,
+     angka, dan tanda minus. Contoh: galeri-1.webp
+  6. Foto pria/wanita tampil dalam bingkai bulat: wajah sebaiknya di
+     bagian atas-tengah foto potret.
+
+  CATATAN: Foto contoh di folder ini hanya contoh. Wajib diganti.
+
+  Jangan menghapus og.jpg - file itu dibuat ulang otomatis di Tahap 7.
+
+MUSIK
+  1. Siapkan lagu format MP3 atau WAV.
+  2. Letakkan di folder musik/ lalu beri nama sederhana, mis. lagu.mp3.
+  3. Di data-undangan.js ubah:  "musik": "musik/lagu.mp3" (atau .wav)
+  4. Disarankan ukuran file maksimal 3-5 MB (potong lagu 2-3 menit saja).
+     Musik bawaan (musik.mp3) hanya contoh; ganti dengan lagu pilihan klien jika ingin.
+  5. Browser HP biasanya baru memutar musik setelah tamu menekan tombol
+     "Buka Undangan" - itu normal. Tamu dapat mematikan/menyalakan musik
+     lewat tombol bulat di kanan bawah.
+
+==============================================================================
+TAHAP 5 - COBA DULU DI KOMPUTER
+==============================================================================
+
+  1. Buka folder undangan. Klik dua kali  index.html.
+     Undangan terbuka di browser (Chrome disarankan).
+  2. Untuk melihat nama tamu di sampul, ketik di akhir alamat browser:
+         ?to=Bapak Andi
+     Jadi alamatnya  .../index.html?to=Bapak Andi
+     Tanpa ?to=  maka tertulis "Tamu Undangan".
+  3. Periksa satu per satu:
+     [ ] Nama kedua mempelai, orang tua, tanggal, jam, tempat benar
+     [ ] Hitung mundur berjalan
+     [ ] Semua foto muncul dan tidak terpotong wajahnya
+     [ ] Tombol "Buka Google Maps" membuka lokasi yang benar (akad & resepsi)
+     [ ] Tombol "Simpan ke Kalender" membuka Google Calendar dengan jam benar
+     [ ] Musik terputar setelah menekan tombol buka
+     [ ] Gulir otomatis bergerak setelah undangan dibuka; tombol /lanjut berfungsi
+     [ ] Rekening (jika ada) benar; tombol "Salin nomor" bekerja
+     [ ] Galeri bisa dibuka (klik foto) dan digeser
+  4. Jika halaman putih/kosong: kemungkinan ada tanda kutip atau koma yang
+     terhapus di data-undangan.js. Lihat Lampiran A.
+  5. Tampilan di komputer: undangan tampil sebagai kolom HP di tengah layar;
+     itu memang disengaja. Uji juga di HP sungguhan (Tahap 10).
+
+  Catatan: saat dibuka langsung dari komputer (file://), panel admin dan
+  ucapan online belum bisa diuji dengan benar. Itu diuji setelah Tahap 8.
+
+==============================================================================
+TAHAP 6 - SAMBUNGKAN FIREBASE  (ucapan online + panel admin)
+==============================================================================
+
+Dikerjakan SEKALI per proyek Firebase. Satu proyek Firebase bisa dipakai untuk
+banyak undangan, asalkan "kode" tiap undangan berbeda.
+Tampilan menu Firebase bisa berubah sedikit dari waktu ke waktu; cari menu
+yang namanya mirip.
+
+A. BUAT PROYEK
+   1. Buka https://console.firebase.google.com dan masuk dengan akun Google.
+   2. Klik "Create a project" / "Tambahkan project".
+   3. Beri nama, misalnya  undangan-saya  -> Lanjut.
+   4. Google Analytics boleh dimatikan -> Create project -> Continue.
+
+B. AMBIL apiKey DAN projectId
+   1. Di halaman proyek, klik ikon web  </>  (Add app -> Web).
+   2. Beri nama aplikasi (bebas) -> Register app.
+   3. Akan tampil kode "firebaseConfig". Salin dua nilai:
+         apiKey:     "AIza...."
+         projectId:  "undangan-saya"
+      (projectId juga terlihat di Project settings.)
+   4. Buka data/data-undangan.js lalu isi:
+         "firebase": { "apiKey": "AIza....", "projectId": "undangan-saya" },
+      apiKey Firebase untuk web memang bukan rahasia. Keamanan data dijaga
+      oleh "aturan" di langkah D.
+
+C. AKTIFKAN FIRESTORE (tempat menyimpan data)
+   1. Menu kiri: Build -> Firestore Database -> Create database.
+   2. Lokasi: pilih yang terdekat (mis. asia-southeast2 / Jakarta).
+      Lokasi tidak bisa diganti setelah dibuat.
+   3. Pilih mode "Production mode" -> Create.
+      JANGAN pilih "Test mode": test mode kedaluwarsa dalam 30 hari sehingga
+      ucapan tiba-tiba berhenti bekerja.
+
+D. TEMPEL ATURAN KEAMANAN
+   1. Di Firestore Database buka tab "Rules".
+   2. Hapus semua isi, lalu buka file firebase.rules (di folder ini) dengan
+      Notepad++, salin SEMUA isinya, tempel ke kotak Rules.
+   3. Klik "Publish". Tunggu hingga tertulis berhasil.
+   Fungsi aturan ini: tamu hanya boleh MENGIRIM ucapan (maksimal 300 huruf),
+   hanya admin yang boleh MENGHAPUS ucapan dan melihat daftar tamu.
+
+E. AKTIFKAN LOGIN ADMIN
+   1. Menu kiri: Build -> Authentication -> Get started.
+   2. Tab "Sign-in method" -> pilih "Email/Password" -> aktifkan (Enable) ->
+      Save. (Jangan aktifkan "Email link".)
+   3. Tab "Users" -> "Add user":
+         Email    : KODE@admin.undangan
+                    (KODE = isi "kode" di data-undangan.js; contoh
+                     "rezanadia2027" -> email  rezanadia2027@admin.undangan )
+         Password : kata sandi admin untuk klien (minimal 6 karakter)
+      -> Add user.
+   PENTING: email HARUS persis  kode@admin.undangan  huruf kecil. Jika tidak
+   sama, klien akan selalu gagal masuk atau "Tidak diizinkan".
+   Email ini hanya nama login, tidak perlu benar-benar ada.
+
+F. UNTUK UNDANGAN KLIEN BERIKUTNYA
+   Pakai proyek Firebase yang sama. Cukup:
+     - isi "kode" baru yang unik di data-undangan.js,
+     - tambah user Authentication baru: kodebaru@admin.undangan + password.
+   Tidak perlu mengulang langkah A-D.
+
+Catatan paket gratis (Spark) Firebase cukup untuk undangan biasa. Jangan
+membagikan kata sandi admin kepada orang lain selain klien.
+
+
+==============================================================================
+TAHAP 7 - SINKRONKAN TAMPILAN LINK WHATSAPP  (tools/sinkron-meta.py)
+==============================================================================
+
+Supaya saat link dikirim ke WhatsApp muncul foto, nama mempelai, dan tanggal yang
+benar (kartu pratinjau), jalankan alat ini SEKALI setelah semua data & foto
+klien final.
+
+  Yang dikerjakan alat ini:
+    - membuat foto/og.jpg ukuran 1200x630 dari foto pratinjau/bingkai/sampul,
+    - menulis ulang judul dan deskripsi pratinjau di index.html.
+    - Deskripsi pratinjau dibuat otomatis dari nama mempelai, tanggal, dan
+      tempat acara. Deskripsi singkat dari klien bisa dipakai sebagai teks
+      pengantar khusus, tetapi tidak tersimpan sebagai kolom data tersendiri
+      di template saat ini.
+
+  Cara menjalankan (Windows):
+    1. Buka folder undangan di File Explorer.
+    2. Klik kotak alamat di bagian atas, ketik  cmd  lalu Enter.
+    3. Ketik:
+           python tools/sinkron-meta.py
+       (jika gagal, coba  py tools/sinkron-meta.py )
+    4. Jika berhasil tampil tulisan:  OK: Undangan Pernikahan ... | Kami
+       mengundang Anda ...
+    5. Jika muncul PERINGATAN soal "siteUrl", itu normal bila Anda belum
+       mengisi alamat asli. Ulangi alat ini lagi di Tahap 9.
+
+  Jika tidak bisa menjalankan Python:
+    - Buat gambar 1200 x 630 px dari foto klien (lewat canva.com atau
+      aplikasi foto), simpan sebagai foto/og.jpg (timpa yang lama).
+    - Judul dan deskripsi pratinjau tetap bisa dikoreksi manual di blok
+      <!--OG--> ... <!--/OG--> pada index.html, tetapi cara aman adalah
+      meminta bantuan orang yang bisa menjalankan alat ini.
+
+  Ingat: alat ini HARUS dijalankan ulang jika nama mempelai, tanggal, tempat,
+  foto, atau siteUrl berubah.
+
+
+==============================================================================
+TAHAP 8 - PUBLIKASI KE INTERNET  (GitHub Pages, tanpa perlu coding)
+==============================================================================
+
+Hasil akhirnya: link seperti  https://NAMAANDA.github.io/nama-repo/
+
+A. BUAT "REPOSITORY"
+   1. Masuk ke https://github.com.
+   2. Klik tanda + (kanan atas) -> New repository.
+   3. Repository name: nama tanpa spasi, mis.  nikah-reza-nadia
+      (nama ini akan menjadi bagian dari link; pakai huruf kecil).
+   4. Pilih "Public". Klik "Create repository".
+
+B. UNGGAH FILE
+   1. Di halaman repository klik "uploading an existing file"
+      (atau Add file -> Upload files).
+   2. Buka folder undangan di komputer. Tekan Ctrl+A di dalam folder agar
+      SEMUA isi terpilih (index.html, admin.html, data, foto, js, musik,
+      tools, dll), lalu seret ke halaman GitHub.
+      PENTING: yang diunggah adalah ISI folder, bukan folder luarnya.
+      File index.html harus berada di tingkat paling atas repository.
+   3. Tunggu sampai semua tampil. Jika file terlalu banyak, unggah per
+      folder. Maksimal 100 file per sekali seret di web GitHub.
+   4. Di bawah, klik "Commit changes".
+
+C. NYALAKAN GITHUB PAGES
+   1. Di repository klik Settings -> menu kiri "Pages".
+   2. Bagian "Build and deployment": Source = "Deploy from a branch".
+   3. Branch = main, folder = / (root) -> Save.
+   4. Tunggu 1-3 menit, muat ulang halaman. Di bagian atas muncul:
+         "Your site is live at https://NAMAANDA.github.io/nikah-reza-nadia/"
+   5. Salin alamat itu. Klik untuk memastikan undangan terbuka.
+
+Catatan:
+  - Repository "Public" artinya semua orang bisa melihat file, termasuk isi
+    data-undangan.js (nama, tanggal, tempat). Itu memang data yang tampil di
+    undangan. Jangan menaruh data rahasia (misalnya kata sandi) di file
+    mana pun.
+  - Alternatif hosting yang juga mudah: Netlify (netlify.com/drop - tinggal
+    seret folder) atau Cloudflare Pages. Hasil akhir tetap berupa satu link;
+    langkah selanjutnya sama.
+
+
+==============================================================================
+TAHAP 9 - ISI ALAMAT ASLI, SINKRON ULANG, UPLOAD ULANG
+==============================================================================
+
+Sekarang alamat asli sudah ada, kita masukkan ke data supaya link tamu,
+panel admin, dan pratinjau WhatsApp benar.
+
+  1. Buka data/data-undangan.js. Ubah:
+         "siteUrl": "https://NAMAANDA.github.io/nikah-reza-nadia/",
+     Wajib diakhiri tanda / dan harus sama persis dengan alamat live.
+  2. Jalankan lagi Tahap 7 (python tools/sinkron-meta.py) sampai tidak ada
+     PERINGATAN siteUrl.
+  3. Upload ulang file yang berubah ke GitHub:
+       - data/data-undangan.js
+       - index.html
+       - foto/og.jpg
+     Caranya: buka file lama di GitHub (mis. data/data-undangan.js) -> ikon
+     pensil/Edit -> tempel isi baru -> Commit changes.
+     Untuk foto/og.jpg: Add file -> Upload files -> unggah dengan nama sama,
+     lalu Commit changes (otomatis menimpa).
+  4. Tunggu 1-2 menit lalu buka link dengan Ctrl+F5 (muat ulang paksa).
+
+  Pratinjau WhatsApp bisa "menyimpan" gambar lama. Kalau sudah terlanjur
+  mengirim link, ganti dengan menambahkan tanda tanya di akhir link saat
+  uji coba, mis.  .../nikah-reza-nadia/?v=2
+
+
+==============================================================================
+TAHAP 10 - TES AKHIR DI HP  (jangan dilewatkan)
+==============================================================================
+
+Gunakan HP, data seluler (bukan Wi-Fi yang sama dengan komputer, agar cache
+tidak menipu).
+
+  [ ] 1. Buka link:  https://NAMAANDA.github.io/nikah-reza-nadia/?to=Bapak%20Andi
+         Sampul menampilkan "Bapak Andi".
+  [ ] 2. Semua foto tampil, musik bisa diputar, hitung mundur jalan.
+  [ ] 3. Kirim ucapan percobaan dari bagian "Ucapan & Doa":
+         isi nama, ucapan, pilih kehadiran -> Kirim.
+         Muncul tulisan "Ucapan terkirim. Terima kasih!".
+  [ ] 4. Buka panel admin:  https://NAMAANDA.github.io/nikah-reza-nadia/admin.html
+         Masuk memakai kata sandi admin (dari Tahap 6E).
+         - Tab "Ucapan": ucapan percobaan terlihat. Hapus ucapan percobaan
+           memakai tombol "Hapus" sebelum diserahkan ke klien.
+         - Tab "Tamu": tambah satu tamu percobaan -> tombol "Kirim WhatsApp"
+           -> ke nomor Anda sendiri. Pesan dan link benar. Lalu hapus tamu
+           percobaan.
+  [ ] 5. Kirim link polos (tanpa ?to=) ke WhatsApp Anda sendiri.
+         Kartu pratinjau muncul dengan foto, judul "Undangan Pernikahan ...",
+         tanggal dan tempat resepsi.
+  [ ] 6. Buka juga di Chrome dan Safari (jika ada iPhone).
+
+Jika ada yang salah, kembali ke tahap terkait (lihat Lampiran A).
+
+
+==============================================================================
+TAHAP 11 - SERAH TERIMA KE KLIEN
+==============================================================================
+
+Kirim ke klien (lewat WhatsApp) tiga hal berikut:
+
+  1. Link undangan (tanpa nama tamu):
+         https://NAMAANDA.github.io/nikah-reza-nadia/
+  2. Link panel admin:
+         https://NAMAANDA.github.io/nikah-reza-nadia/admin.html
+  3. Kata sandi admin (kirim terpisah dari link, sebaiknya jangan ditulis di
+     grup yang banyak anggotanya).
+
+Lalu:
+  - Kirim juga BAGIAN "TAHAP 12" dari file ini (atau tangkapan layar
+    panduannya) agar klien bisa mengikuti sendiri. Contoh pesan ada di
+    Lampiran C.
+  - Minta klien membuka link dan memeriksa teks sekali lagi. Perbaikan data
+    setelah itu dilakukan lewat Tahap 13.
+  - Jangan berikan akun Firebase/GitHub Anda kepada klien. Klien cukup memakai
+    panel admin.
+
+
+==============================================================================
+TAHAP 12 - UCAPAN & PANEL ADMIN
+(PANDUAN UNTUK KLIEN: dari buka panel sampai undangan terkirim ke tamu)
+==============================================================================
+
+Panel admin dipakai klien untuk: (1) mencatat nama tamu, (2) mengirim undangan
+yang sudah memakai nama tamu, (3) membaca ucapan dan konfirmasi kehadiran.
+
+--- 12.1 MASUK KE PANEL ---
+  1. Buka link panel admin yang diberikan, bentuknya  .../admin.html
+     (sebaiknya buka lewat HP atau komputer, simpan sebagai bookmark/layar
+     utama).
+  2. Ketik kata sandi admin -> tekan "Masuk".
+  3. Jika salah, akan tampil "Kata sandi salah". Periksa huruf besar/kecil.
+  4. Jika tampil tulisan "Belum disambungkan", hubungi pembuat undangan
+     (pengaturan Firebase belum selesai).
+
+  Di bagian atas ada tiga angka: jumlah Tamu, jumlah Sudah dikirim, jumlah
+  Ucapan. Ada tiga tab: Tamu, Ucapan, Pengaturan.
+
+--- 12.2 MENAMBAH TAMU ---
+  Satu per satu:
+    1. Tab "Tamu" -> kotak "Nama tamu".
+       Tulis nama persis seperti yang ingin tampil di sampul undangan.
+       Contoh: Bapak Andi / Ibu Rina / Keluarga Besar Hendra
+       (maksimal 40 huruf).
+    2. "No. WhatsApp" boleh diisi (contoh 0812xxxxxxx) agar pesan langsung
+       terbuka ke nomor itu. Boleh dikosongkan.
+    3. Tekan "Tambah".
+
+  Banyak sekaligus:
+    1. Tekan "Tambah banyak sekaligus".
+    2. Tulis satu tamu per baris. Nomor WhatsApp ditambah setelah koma:
+           Bapak Andi, 0812xxxx
+           Ibu Rina
+           Keluarga Besar Hendra, 0857xxxx
+    3. Tekan "Simpan semua".
+    Nama yang sudah ada di daftar tidak akan ditambah dua kali.
+
+--- 12.3 MENGIRIM UNDANGAN KE TAMU ---
+  Setiap tamu punya satu "link pribadi" yang berisi namanya. Saat dibuka,
+  sampul undangan otomatis bertuliskan nama tamu itu.
+
+  Pilih salah satu cara:
+
+  CARA 1 - Tombol "Kirim WhatsApp" (paling mudah)
+    1. Di daftar tamu, tekan "Kirim WhatsApp" pada nama tamu.
+    2. WhatsApp terbuka dengan pesan undangan lengkap + link pribadi.
+       - Jika nomor sudah diisi: langsung ke chat tamu.
+       - Jika nomor belum diisi: tombol berbunyi "Pilih kontak WhatsApp";
+         pilih sendiri kontak tamunya.
+    3. Periksa isi pesan, tekan tombol kirim (panah) di WhatsApp.
+    4. Kembali ke panel. Nama tamu bertanda "Terkirim" (oranye "Belum
+       dikirim" berubah hijau). Tanda ini membantu Anda tahu siapa yang sudah
+       dikirimi.
+
+  CARA 2 - "Salin pesan" lalu tempel
+    Untuk tamu yang dikirim lewat Telegram, Instagram, SMS, atau grup:
+    tekan "Salin pesan" lalu tempel di aplikasi tujuan.
+
+  CARA 3 - "Salin link"
+    Hanya menyalin link pribadinya (tanpa teks pesan).
+
+  Cara 1 hanya menandai "Terkirim" saat tombol ditekan; jika Anda batal
+  mengirim di WhatsApp, tanda tetap berubah. Abaikan saja.
+
+  Mengirim ke GRUP WhatsApp (banyak orang sekaligus)?
+    Gunakan link UMUM (tanpa nama) yaitu link undangan biasa:
+        https://NAMAANDA.github.io/nikah-reza-nadia/
+    Di sampul akan tertulis "Tamu Undangan". Untuk tamu penting, kirim
+    pribadi memakai link bernama.
+
+--- 12.4 MEMBACA UCAPAN & KONFIRMASI KEHADIRAN ---
+  1. Tab "Ucapan". Setiap ucapan memuat nama, isi, status kehadiran
+     (Hadir / Belum bisa hadir / Masih ragu), dan waktu.
+  2. Di tab "Tamu", tamu yang sudah mengucapkan diberi tanda "Sudah
+     mengucapkan" (dicocokkan dari kesamaan nama). Cocok untuk mengecek
+     siapa yang belum menjawab.
+  3. Ucapan tidak pantas dapat dihapus dengan tombol "Hapus".
+  4. Jika tamu mencentang "Kirim juga ke WhatsApp tuan rumah", ucapan juga
+     masuk ke WhatsApp klien.
+
+--- 12.5 PENGATURAN (tab "Pengaturan") ---
+  - "Tampilkan ucapan ke tamu lain": matikan jika ucapan hanya ingin dibaca
+    keluarga. Tamu tetap bisa mengirim ucapan.
+  - "Tampilkan Turut Mengundang": nyalakan/matikan bagian itu (muncul jika
+    nama sudah dimasukkan pembuat undangan).
+  - Tampilkan rekening 1/2: nyalakan/matikan tampilan rekening (muncul jika
+    rekening sudah dimasukkan pembuat undangan).
+  - "Pesan undangan": teks yang dikirim bersama link. Kata dalam kurung
+    kurawal diganti otomatis: {nama} {pria} {wanita} {mempelai} {tanggal}
+    {akad} {resepsi} {link}. Jangan hapus tanda kurung kurawal-nya.
+    Tombol "Kembalikan bawaan" mengembalikan teks awal.
+  - "Tampilan link saat dikirim": contoh kartu yang muncul di WhatsApp.
+  - Setelah mengubah apa pun, tekan "Simpan pengaturan" di bagian bawah.
+
+--- 12.6 KELUAR ---
+  Selesai memakai panel, tekan "Keluar" (bagian bawah tab Pengaturan),
+  terutama jika memakai HP/komputer orang lain.
+
+--- 12.7 ETIKA & TIPS MENGIRIM KE TAMU ---
+  - Kirim 2-3 minggu sebelum acara; ingatkan lagi 2-3 hari sebelum acara.
+  - Kirim di jam wajar (08.00-20.00).
+  - Tulis nama tamu dengan sapaan (Bapak/Ibu/Kak) agar sopan.
+  - Jangan menaruh nomor orang lain tanpa izin; nomor hanya dipakai untuk
+    mengirim undangan.
+  - Cek tab Ucapan menjelang acara untuk memperkirakan jumlah hadir
+    (konsumsi, tempat duduk).
+
+
+==============================================================================
+TAHAP 13 - SETELAH ACARA / JIKA ADA PERUBAHAN DATA
+==============================================================================
+
+MENGUBAH DATA (jam berubah, alamat salah ketik, dsb.)
+  1. Edit data/data-undangan.js (Tahap 3) di komputer.
+  2. Jika yang berubah: nama, tanggal, tempat, atau foto -> jalankan ulang
+     python tools/sinkron-meta.py (Tahap 7).
+  3. Upload ulang file yang berubah ke GitHub (cara di Tahap 9, langkah 3).
+  4. Tunggu 1-2 menit. Tamu cukup membuka ulang link. Link lama tetap
+     berlaku, tidak perlu mengirim ulang (kecuali Anda ingin memberi tahu
+     ada perubahan - kirim pengumuman singkat).
+  JANGAN mengganti "kode" setelah undangan disebar.
+
+SETELAH ACARA
+  - Klien dapat mencatat/menyalin ucapan sebagai kenang-kenangan
+    (tangkapan layar tab Ucapan).
+  - Undangan boleh dibiarkan online. Bila ingin dimatikan: di GitHub buka
+    Settings -> Pages -> nonaktifkan, atau hapus repository.
+  - Hapus data tamu dari panel jika klien ingin privasi.
+
+
+==============================================================================
+LAMPIRAN A - MASALAH YANG SERING TERJADI
+==============================================================================
+
+1. Halaman undangan PUTIH / KOSONG
+   Penyebab paling sering: tanda kutip " atau koma , terhapus di
+   data-undangan.js, atau kutip diganti kutip lengkung.
+   Solusi: bandingkan dengan salinan asli dari ZIP; periksa baris yang
+   baru diubah. Setiap baris berakhir koma, kecuali baris terakhir dalam
+   kelompoknya.
+
+2. Foto tidak tampil
+   - Nama file di data-undangan.js tidak sama persis dengan file di folder
+     foto (cek huruf besar/kecil, .jpg vs .jpeg vs .JPG).
+   - File foto belum ikut diunggah ke GitHub.
+   - Nama file memakai spasi/simbol; ganti jadi huruf kecil dan tanda minus.
+
+3. Musik tidak bunyi
+   - Muncul pesan "Musik tidak dapat diputar. Periksa file musik." berarti
+     nama file di "musik" salah atau file belum diunggah.
+   - HP hanya memutar musik setelah layar disentuh/tombol buka ditekan.
+   - Ukuran file terlalu besar, kompres ke 3-5 MB.
+
+4. Nama tamu tidak muncul di sampul
+   Link harus memakai  ?to=Nama . Gunakan tombol "Salin link" di panel.
+   Link yang dipotong WhatsApp atau tanpa ?to= akan tertulis "Tamu Undangan".
+
+5. Klien tidak bisa masuk panel ("Kata sandi salah")
+   - Kata sandi salah ketik.
+   - Email di Firebase Authentication bukan  KODE@admin.undangan  (huruf kecil
+     dan sama dengan "kode" di data-undangan.js).
+   - Email/Password belum diaktifkan (Tahap 6E).
+   Solusi: di Firebase -> Authentication -> Users, ubah/reset password atau
+   buat user ulang dengan email yang benar.
+
+6. Panel menampilkan "Belum disambungkan"
+   "apiKey", "projectId", atau "kode" di data-undangan.js masih kosong.
+   Isi lalu upload ulang file itu.
+
+7. "Tidak diizinkan. Masuk ulang." atau ucapan tidak bisa dikirim
+   - Aturan (firebase.rules) belum dipublikasikan atau belum disalin utuh.
+   - Firestore dibuat dalam Test mode dan sudah kedaluwarsa. Tempel aturan di
+     Tahap 6D lalu Publish.
+   - projectId salah ketik.
+   - Ucapan terlalu panjang (maksimal 300 huruf) atau nama lebih dari 40
+     huruf.
+   - Jam HP tamu salah jauh dari jam sebenarnya (aturan hanya menerima waktu
+     yang selisihnya kurang dari 10 menit). Minta tamu mengaktifkan jam
+     otomatis.
+
+8. Tamu tidak dapat membaca ucapan tamu lain
+   "ucapanPublik" bernilai false, atau dimatikan di tab Pengaturan. Nyalakan
+   "Tampilkan ucapan ke tamu lain" lalu Simpan pengaturan.
+
+9. Kartu pratinjau WhatsApp tidak muncul / foto lama
+   - "siteUrl" belum diisi atau tidak sama persis dengan alamat live.
+   - foto/og.jpg belum dibuat (Tahap 7) atau belum diunggah ulang.
+   - WhatsApp menyimpan pratinjau lama; uji dengan menambah  ?v=2  di akhir
+     link.
+   - Repository GitHub harus Public dan Pages sudah aktif.
+   - Link belum benar-benar aktif (tunggu beberapa menit setelah upload).
+
+10. Perubahan di GitHub belum terlihat
+    GitHub Pages butuh 1-3 menit. Tekan Ctrl+F5 (di HP: buka lewat tab
+    penyamaran) atau buka dengan tambahan ?v=3 di akhir link.
+
+11. python tidak dikenali / pillow tidak ada
+    Pasang ulang Python dan centang "Add Python to PATH". Jalankan
+    pip install pillow. Coba juga  py  sebagai pengganti  python .
+
+12. Link Google Maps salah
+    Buka Google Maps, cari lokasi, Bagikan -> Salin link. Pastikan seluruh
+    link ada di antara tanda kutip dan hanya satu baris.
+
+
+==============================================================================
+LAMPIRAN B - REKOMENDASI MUSIK
+==============================================================================
+
+  - Pilih lagu yang lembut dan romantis: instrumental piano/akustik, shalawat
+    pernikahan versi instrumen, atau lagu klasik bebas royalti. Hindari lagu
+    yang bising.
+  - Pakai lagu bebas royalti atau lagu yang klien berhak menggunakannya.
+    Lagu populer yang berhak cipta dapat menimbulkan masalah hak cipta bila
+    diunggah ke internet.
+  - Potong 2-3 menit, format MP3, ukuran maksimal 3-5 MB.
+  - Letakkan di folder musik/ dan isi "musik" di data-undangan.js.
+
+==============================================================================
+LAMPIRAN C - CONTOH PESAN SERAH TERIMA KE KLIEN
+==============================================================================
+
+(Salin dan sesuaikan.)
+
+  Assalamu'alaikum Bapak/Ibu/Kak ..., undangan digital pernikahan ... & ...
+  sudah siap.
+
+  Link undangan:      https://NAMAANDA.github.io/nikah-reza-nadia/
+  Panel admin:        https://NAMAANDA.github.io/nikah-reza-nadia/admin.html
+  Kata sandi admin:   (dikirim di pesan terpisah)
+
+  Cara mengirim ke tamu:
+  1. Buka link panel admin, masuk dengan kata sandi.
+  2. Tab "Tamu" -> isi nama tamu (dan nomor WhatsApp bila ada) -> Tambah.
+     Untuk banyak tamu, pilih "Tambah banyak sekaligus".
+  3. Tekan "Kirim WhatsApp" pada setiap nama, lalu tekan kirim di WhatsApp.
+  4. Ucapan dan konfirmasi hadir bisa dilihat di tab "Ucapan".
+
+  Mohon dicek kembali nama, tanggal, jam, dan alamat akad & resepsi. Bila ada
+  yang perlu diperbaiki, kabari kami sebelum undangan disebar. Terima kasih.
+
+==============================================================================
+LAMPIRAN D - DAFTAR CENTANG AKHIR  (untuk pembuat undangan)
+==============================================================================
+
+DATA
+  [ ] "kode" unik, huruf kecil, tanpa spasi
+  [ ] Nama kedua mempelai dan orang tua benar
+  [ ] Tanggal akad & resepsi (TAHUN!), jam, zona, tempat, alamat, link Maps benar
+  [ ] Nomor WA pemesan diawali 62
+  [ ] Rekening/alamat kado (jika ada) sudah dicek dua kali
+  [ ] Kisah cinta bawaan sudah diganti atau dikosongkan []
+  [ ] "ucapan" kosong []  (tidak ada ucapan contoh)
+FILE
+  [ ] Foto klien sudah menggantikan foto contoh; ukuran wajar dan tajam
+  [ ] Musik sudah dipilih dan dipastikan boleh digunakan
+  [ ] foto/og.jpg dibuat ulang lewat sinkron-meta.py
+FIREBASE
+  [ ] Aturan (firebase.rules) sudah dipublish
+  [ ] Email/Password aktif; user  kode@admin.undangan  sudah dibuat
+  [ ] Firestore bukan Test mode
+PUBLIKASI
+  [ ] "siteUrl" = alamat live, berakhir tanda /
+  [ ] Semua file terunggah ke GitHub; Pages aktif
+  [ ] Tes di HP: tampilan, ucapan, admin, tamu percobaan sudah dihapus
+  [ ] Pratinjau WhatsApp benar
+SERAH TERIMA
+  [ ] Link undangan + link admin + kata sandi sudah dikirim ke klien
+  [ ] Klien sudah diberi panduan Tahap 12
+
+==============================================================================
+SELESAI. Semoga acara pernikahannya lancar dan penuh berkah.
+==============================================================================
+
+==========================================================================
+PENGATURAN BARU (urutan nama, saklar panel admin, kartu rekening bertema bank)
+==========================================================================
+1) URUTAN NAMA MEMPELAI  (data/data-undangan.js -> pihakKlien)
+   "pihakKlien": "pria"   -> nama pria tampil lebih dulu   (Pria & Wanita)
+   "pihakKlien": "wanita" -> nama wanita tampil lebih dulu (Wanita & Pria)
+   Yang ikut berubah: judul/nama di sampul & beranda, urutan blok foto pria/wanita,
+   dan judul acara di kalender. Bisa juga:
+     - diubah dari Panel Admin ("Klien (pemesan) dari pihak"), berlaku untuk semua tamu;
+     - ditimpa per link tamu dengan menambah  &urut=wanita  (atau  &urut=pria)  di ujung link.
+   Setelah mengubahnya di data, jalankan  tools/sinkron-meta.py  agar judul pratinjau
+   link (WhatsApp) ikut berubah.
+
+2) SAKLAR PANEL ADMIN  (data/data-undangan.js -> panelAdmin: true/false)
+   true = pengaturan tampil di panel admin, false = disembunyikan (nilai tersimpan tetap dipakai).
+
+3) KARTU REKENING BERTEMA BANK  (nama bank di kolom bank / jenis rekening)
+   Kartu otomatis berwarna, bermotif, dan berlogo sesuai bank (BCA, BRI, BNI, Mandiri, BSI,
+   CIMB, Permata, BTN, Danamon, Jago, SeaBank, DANA, OVO, GoPay, ShopeePay, LinkAja, Jenius,
+   Maybank, OCBC, BJB, Neo, Muamalat). Ukuran/bentuk kartu mengikuti template ini.
+   "logoBank": false  -> logo disembunyikan (warna & motif tetap).  Bank lain = kartu bawaan.
+   Logo di foto/bank/ bersumber dari idn-finlogos (CC BY-NC 4.0, non-komersial; lihat
+   foto/bank/LISENSI.txt). Untuk pesanan berbayar: set "logoBank": false dan hapus foto/bank.
